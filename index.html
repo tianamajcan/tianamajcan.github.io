@@ -3,7 +3,7 @@
 <body>
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages.</p>
-<form>
+<form>]
     <button>
         Connect to Argon
     </button>
@@ -15,7 +15,24 @@
             return false
         }
 
-        else return true
+        else {
+            console.log('Connecting...')
+        }
+
+    // function getDeviceInfo() {
+    //     let options = {
+    //         acceptAllDevice: true
+    //     }
+
+    //     console.log('Reques')
+    // }
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.stopPropagation()
+        event.preventDefault()
+
+        isWebBLEAvailable()
+    })
     }
 </script>
 
