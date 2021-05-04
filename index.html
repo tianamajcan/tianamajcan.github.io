@@ -3,5 +3,21 @@
 <body>
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages.</p>
+<form>
+    <button>
+        Connect to Argon
+    </button>
+</form>
+<script>
+    function isWebBLEAvailable() {
+        if (!navigator.bluetooth) {
+            console.log('Web Bluetooth is not available')
+            return false
+        }
+
+        else return true
+    }
+</script>
+
 </body>
 </html>
