@@ -3,11 +3,11 @@
 <body>
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages. This has been updated. </p>
-<form>
-    <button id="connect"> Connect to Argon</button>
-    <button id="start" disabled>Start reading</button>
-    <button id="stop" disabled>Stop</button>
-</form>
+
+<button id="connect"> Connect to Argon</button>
+<button id="start" disabled>Start reading</button>
+<button id="stop" disabled>Stop</button>
+
 <script>
 
     var deviceName = 'Ohmie Argon'
@@ -46,6 +46,9 @@
             console.log('Reading rsii value...')
             return gattCharacteristic.readValue()
         })
+        .catch(error => {
+        console.log('Waiting to start reading: ' + error)
+    })
     }
 
     function connectGATT() {
