@@ -42,7 +42,9 @@
     }
 
     function connect() {
-        return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo()).then(connectGATT).then(_=> {
+        return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo())
+        .then(connectGATT)
+        .then(_ => {
             console.log('Reading rsii value...')
             return gattCharacteristic.readValue()
         })
