@@ -30,12 +30,11 @@
 
     function getDeviceInfo() {
         let options = {
-            "filters": [
-                {"name": deviceName}
-            ]
+            acceptAllDevices: true
         }
         console.log('Requesting BLE device info...')
         return navigator.bluetooth.requestDevice(options).then(device => {
+            console.log('Name: ' + device.name)
             bluetoothDeviceDetected = device
         }).catch(error => {
             console.log('Woops!' + error)
