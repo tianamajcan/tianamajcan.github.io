@@ -21,11 +21,24 @@
         }
     }
 
+    function getDevices() {
+        let options = {
+            acceptAllDevices:true
+        }
+        console.log('Requesting BLE device info...')
+        navigator.bluetooth.requestDevice(options).then(device => {
+            console.log('Name: ' + device.name)
+            // console.log('RSSI: ' + device.)
+        })
+    }
+
     document.querySelector('button').addEventListener('click', function(event) {
         event.stopPropagation()
         event.preventDefault()
 
-        isWebBLEAvailable()
+        if (isWebBLEAvailable()) {
+            getDevices()
+        }
     })
 
 </script>
