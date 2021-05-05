@@ -4,11 +4,18 @@
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages. This has been updated. </p>
 <form>
-    <button>
-        Connect to Argon
-    </button>
+    <button id="connect"> Connect to Argon</button>
+    <button id="start" disabled>Start reading</button>
+    <button id="stop" disabled>Stop</button>
 </form>
 <script>
+
+    var deviceName = 'Ohmie Argon'
+    var bleService = 'tx_power'
+    var bleCharacteristic = 'tx_power_level'
+    var bluetoothDeviceDetected
+    var gattCharacteristic
+
     function isWebBLEAvailable() {
         if (!navigator.bluetooth) {
             console.log('Web Bluetooth is not available')
@@ -21,23 +28,88 @@
         }
     }
 
-    function getDevices() {
+    function getDeviceInfo() {
         let options = {
-            acceptAllDevices:true
+            "filters": [
+                {"name": deviceName}
+            ]
         }
         console.log('Requesting BLE device info...')
-        navigator.bluetooth.requestDevice(options).then(device => {
-            console.log('Name: ' + device.name)
-            // console.log('RSSI: ' + device.)
+        return navigator.bluetooth.requestDevice(options).then(device => {
+            bluetoothDeviceDetected = device
+        }).catch(error => {
+            console.log('Woops!' + error)
         })
     }
 
-    document.querySelector('button').addEventListener('click', function(event) {
-        event.stopPropagation()
-        event.preventDefault()
+    function connect() {
+        return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo()).then(connectGATT).then(_=> {
+            console.log('Reading rsii value...')
+            return gattCharacteristic.readValue()
+        })
+    }
 
+    function connectGATT() {
+        if(bluetoothDeviceDetected.gatt.connected && gattCharacteristic) {
+            return Promise.resolve()
+        }
+
+        return bluetoothDeviceDetected.gatt.connected()
+        .then(server => {
+            console.log('Getting GATT serivce...')
+            return server.getPrimaryService(bleService)
+        })
+        .then(service => {
+            console.log('Getting GATT Characteristic...')
+            return service.getCharacteristic(bleCharacteristic)
+        })
+        .then(characteristic => {
+            gattCharacteristic = characteristic
+            gattCharacteristic.addEventListener('characteristicvaluechanged', handleChangedValue)
+        })
+
+        document.querySelector('#start').disabled = false
+        document.querySelector('#stop').disabled = true
+    }
+
+    function handleChangedValue(event) {
+        var value = event.target.value.getUint8(0)
+        console.log('The value is now: ' + value)
+    }
+
+    function start() {
+        gattCharacteristic.startNotifications()
+        .then(_ => {
+            console.log('Start reading...')
+            document.querySelector('#start').disabled = true
+            document.querySelector('#stop').disabled = false
+        })
+    }
+
+    function stop() {
+        gattCharacteristic.stopNotifications()
+        .then(_ => {
+            console.log('Stop reading.')
+            document.querySelector('#start').disabled = false
+            document.querySelector('#stop').disabled = true
+        })
+    }
+
+    document.querySelector('#connect').addEventListener('click', function() {
         if (isWebBLEAvailable()) {
-            getDevices()
+            connect();
+        }
+    })
+
+    document.querySelector('#start').addEventListener('click', function() {
+        if (isWebBLEAvailable()) {
+            start();
+        }
+    })
+
+    document.querySelector('#stop').addEventListener('click', function() {
+        if (isWebBLEAvailable()) {
+            stop();
         }
     })
 
