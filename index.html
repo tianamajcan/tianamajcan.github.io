@@ -58,7 +58,7 @@
             return Promise.resolve()
         }
 
-        return bluetoothDeviceDetected.gatt.connected()
+        return bluetoothDeviceDetected.gatt.connect()
         .then(server => {
             console.log('Getting GATT serivce...')
             return server.getPrimaryService(bleService)
