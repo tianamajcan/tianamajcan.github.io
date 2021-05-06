@@ -3,7 +3,7 @@
 
 <body>
     <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages. ?it might work </p>
+    <p>I'm hosted with GitHub Pages. g </p>
 
     <button id="connect"> Connect to Argon</button>
     <button id="start" disabled>Start reading</button>
@@ -54,6 +54,7 @@
             return navigator.bluetooth.requestDevice(options).then(device => {
                 console.log('Device name: ' + device.name)
                 bluetoothDeviceDetected = device
+                device.watchAdvertisements()
                 device.addEventListener('advertisementreceived', getRssi)
             }).catch(error => {
                 console.log('Woops!' + error)
