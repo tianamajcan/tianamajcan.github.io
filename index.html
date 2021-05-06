@@ -3,7 +3,7 @@
 
 <body>
     <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages. it might work </p>
+    <p>I'm hosted with GitHub Pages. ?it might work </p>
 
     <button id="connect"> Connect to Argon</button>
     <button id="start" disabled>Start reading</button>
@@ -54,7 +54,7 @@
             return navigator.bluetooth.requestDevice(options).then(device => {
                 console.log('Device name: ' + device.name)
                 bluetoothDeviceDetected = device
-                // device.addEventListener('advertisementreceived', getRssi)
+                device.addEventListener('advertisementreceived', getRssi)
             }).catch(error => {
                 console.log('Woops!' + error)
             })
@@ -98,8 +98,8 @@
         function handleChangedValue(event) {
             var value = event.target.value.getUint8(0)
             console.log('The value is now: ' + value)
-            var rssi = bluetoothDeviceDetected.rssi
-            console.log('The RSSI is: ' + rssi)
+            // var rssi = bluetoothDeviceDetected.rssi
+            // console.log('The RSSI is: ' + rssi)
         }
 
         function getRssi(event) {
