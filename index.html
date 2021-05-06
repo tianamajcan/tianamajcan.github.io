@@ -69,11 +69,11 @@
         })
         .then(characteristic => {
             gattCharacteristic = characteristic
-            gattCharacteristic.addEventListener('characteristicvaluechanged', handleChangedValue)
-        })
+            gattCharacteristic.addEventListener('characteristicvaluechanged', handleChangedValue) 
 
-        document.querySelector('#start').disabled = false
-        document.querySelector('#stop').disabled = true
+            document.querySelector('#start').disabled = false
+            document.querySelector('#stop').disabled = true
+        })
     }
 
     function handleChangedValue(event) {
