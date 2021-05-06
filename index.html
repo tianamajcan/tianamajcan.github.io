@@ -45,7 +45,7 @@
         return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo())
         .then(connectGATT)
         .then(_ => {
-            console.log('Reading rsii value...')
+            console.log('Reading rssi value...')
             return gattCharacteristic.readValue()
         })
         .catch(error => {
@@ -77,7 +77,7 @@
     }
 
     function handleChangedValue(event) {
-        var value = event.rssi
+        var value = event.target.value.getUint8(0)
         console.log('The value is now: ' + value)
     }
 
@@ -101,19 +101,19 @@
 
     document.querySelector('#connect').addEventListener('click', function() {
         if (isWebBLEAvailable()) {
-            connect();
+            connect()
         }
     })
 
     document.querySelector('#start').addEventListener('click', function() {
         if (isWebBLEAvailable()) {
-            start();
+            start()
         }
     })
 
     document.querySelector('#stop').addEventListener('click', function() {
         if (isWebBLEAvailable()) {
-            stop();
+            stop()
         }
     })
 
