@@ -10,9 +10,8 @@
 
 <script>
 
-    var deviceName = 'Ohmie Argon'
     var bleService = 'tx_power'
-    var bleServiceUuid = 0x1804
+    // var bleServiceUuid = 0x1804
     var bleCharacteristic = 'tx_power_level'
     var bluetoothDeviceDetected
     var gattCharacteristic
@@ -32,7 +31,7 @@
     function getDeviceInfo() {
         let options = {
             acceptAllDevices: true,
-            optionalServices: [bleServiceUuid]
+            optionalServices: [bleService]
         }
         console.log('Requesting BLE device info...')
         return navigator.bluetooth.requestDevice(options).then(device => {
