@@ -3,7 +3,7 @@
 
 <body>
     <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages. gg </p>
+    <p>I'm hosted with GitHub Pages. this will work </p>
 
     <button id="connect"> Connect to Argon</button>
     <button id="start" disabled>Start reading</button>
@@ -55,8 +55,10 @@
             .then(device => {
                 console.log('Device name: ' + device.name)
                 bluetoothDeviceDetected = device
-                device.watchAdvertisements()
-                device.addEventListener('advertisementreceived', getRssi)
+                debugger
+                device.watchingAdvertisements()
+                device.addEventListener('advertisementreceived', (event) =>
+                console.log('Rssi: ' + event.rssi))
             }).catch(error => {
                 console.log('Woops!' + error)
             })
@@ -66,7 +68,7 @@
             return (bluetoothDeviceDetected ? Promise.resolve() : getDeviceInfo())
                 .then(connectGATT)
                 .then(_ => {
-                    console.log('Reading rssi value...')
+                    console.log('Beginning data stream...')
                     return gattCharacteristic.readValue()
                 })
                 .catch(error => {
