@@ -11,7 +11,6 @@
 <script>
 
     var bleService = 'tx_power'
-    // var bleServiceUuid = 0x1804
     var bleCharacteristic = 'tx_power_level'
     var bluetoothDeviceDetected
     var gattCharacteristic
@@ -78,7 +77,7 @@
     }
 
     function handleChangedValue(event) {
-        var value = event.target.value.getUint8(0)
+        var value = event.rssi
         console.log('The value is now: ' + value)
     }
 
