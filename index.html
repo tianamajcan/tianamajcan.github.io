@@ -10,8 +10,8 @@
 
 <script>
 
-    var bleService = 'tx_power'
-    var bleCharacteristic = 'tx_power_level'
+    var bleService = 'environmental_sensing'
+    var bleCharacteristic = 'ux_index'
     var bluetoothDeviceDetected
     var gattCharacteristic
 
@@ -49,7 +49,7 @@
             return gattCharacteristic.readValue()
         })
         .catch(error => {
-        console.log('Waiting to start reading: ' + error)
+        console.log('Woops! ' + error)
     })
     }
 
