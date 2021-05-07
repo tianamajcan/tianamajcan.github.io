@@ -79,9 +79,13 @@
 
             navigator.bluetooth.requestDevice(options).then(device => {
                 
-                console.log('Device name: ' + device.name)
+                console.log('Device name: ' + device.name)   
+
+                device.watctAdvertisements()
+                debugger 
 
                 device.addEventListener('advertisementreceived', (event) => {
+                    debugger
                     console.log('Advertisement recieved')
                     console.log('RSSI: ' + event.rssi)
                 })
