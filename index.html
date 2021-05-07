@@ -80,8 +80,6 @@
             navigator.bluetooth.requestDevice(options).then(device => {
                 
                 console.log('Device name: ' + device.name)   
-
-                device.watchAdvertisements()
                 debugger 
 
                 device.addEventListener('advertisementreceived', (event) => {
