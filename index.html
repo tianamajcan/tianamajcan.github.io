@@ -82,7 +82,9 @@
                 console.log('Device name: ' + device.name)   
                 debugger 
 
-                device.addEventListener('advertisementreceived', (event) => {
+                bluetoothDeviceDetected = device
+
+                bluetoothDeviceDetected.addEventListener('advertisementreceived', (event) => {
                     debugger
                     console.log('Advertisement recieved')
                     console.log('RSSI: ' + event.rssi)
