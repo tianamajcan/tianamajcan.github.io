@@ -3,7 +3,7 @@
 
 <body>
     <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages. this will work </p>
+    <p>I'm hosted with GitHub Pages. </p>
 
     <button id="connect"> Connect to Argon</button>
     <button id="start" disabled>Start reading data</button>
@@ -52,25 +52,47 @@
             }
         }
 
-        function getDeviceInfo() {
+        // function getDeviceInfo() {
+        //     let options = {
+        //         filters: [{services: [bleService]}],
+        //     }
+
+        //     console.log('Requesting BLE device info...')
+
+        //     return navigator.bluetooth.requestDevice(options)
+        //     .then(device => {
+        //         console.log('Device name: ' + device.name)
+        //         bluetoothDeviceDetected = device
+        //         device.addEventListener('advertisementreceived', getRssi)
+        //         debugger
+        //     }).catch(error => {
+        //         console.log('Woops!' + error)
+        //     })
+        // }
+
+        function scanForAdvertisements() {
             let options = {
                 filters: [{services: [bleService]}],
             }
 
             console.log('Requesting BLE device info...')
 
-            return navigator.bluetooth.requestDevice(options)
-            .then(device => {
+            navigator.bluetooth.requestDevice(options).then(device => {
+                
                 console.log('Device name: ' + device.name)
-                bluetoothDeviceDetected = device
-                device.addEventListener('advertisementreceived', getRssi)
-                debugger
-            }).catch(error => {
-                console.log('Woops!' + error)
-            })
-        }
 
-        function scanForAdvertisements() {
+                device.addEventListener('advertisementreceived', (event) => {
+                    console.log('Advertisement recieved')
+                    console.log('RSSI: ' + event.rssi)
+                })
+            })
+
+            // console.log('Watching advertisements from "' + device.name + '"...');
+            // return device.watchAdvertisements(); //<--- This throws a typeError
+            // })
+            // .catch(error => {
+            // console.log('Argh! ' + error);
+            // })
 
         }
 
