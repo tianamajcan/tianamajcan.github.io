@@ -8,7 +8,7 @@
     <button id="connect"> Connect to Argon</button>
     <button id="start" disabled>Start reading data</button>
     <button id="stop" disabled>Stop</button>
-    <button id="read"disabled>Read advertisements</button>
+    <button id="scan">Scan for advertisements from Ohmie</button>
 
     <script>
 
@@ -35,6 +35,12 @@
             }
         })
 
+        document.querySelector('#scan').addEventListener('click', function() {
+            if (isWebBLEAvailable()) {
+                scanForAdvertisements()
+            }
+        })
+
         function isWebBLEAvailable() {
             if (!navigator.bluetooth) {
                 console.log('Web Bluetooth is not available')
@@ -57,12 +63,15 @@
             .then(device => {
                 console.log('Device name: ' + device.name)
                 bluetoothDeviceDetected = device
-                debugger
-                device.
                 device.addEventListener('advertisementreceived', getRssi)
+                debugger
             }).catch(error => {
                 console.log('Woops!' + error)
             })
+        }
+
+        function scanForAdvertisements() {
+
         }
 
         function connect() {
