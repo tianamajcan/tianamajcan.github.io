@@ -6,8 +6,9 @@
     <p>I'm hosted with GitHub Pages. this will work </p>
 
     <button id="connect"> Connect to Argon</button>
-    <button id="start" disabled>Start reading</button>
+    <button id="start" disabled>Start reading data</button>
     <button id="stop" disabled>Stop</button>
+    <button id="read"disabled>Read advertisements</button>
 
     <script>
 
@@ -18,7 +19,7 @@
 
         document.querySelector('#connect').addEventListener('click', function () {
             if (isWebBLEAvailable()) {
-                connect()
+                getDeviceInfo()
             }
         })
 
@@ -51,14 +52,14 @@
             }
 
             console.log('Requesting BLE device info...')
+
             return navigator.bluetooth.requestDevice(options)
             .then(device => {
                 console.log('Device name: ' + device.name)
                 bluetoothDeviceDetected = device
                 debugger
-                device.watchingAdvertisements()
-                device.addEventListener('advertisementreceived', (event) =>
-                console.log('Rssi: ' + event.rssi))
+                device.
+                device.addEventListener('advertisementreceived', getRssi)
             }).catch(error => {
                 console.log('Woops!' + error)
             })
