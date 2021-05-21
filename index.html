@@ -52,23 +52,23 @@
             }
         }
 
-        // function getDeviceInfo() {
-        //     let options = {
-        //         filters: [{services: [bleService]}],
-        //     }
+        function getDeviceInfo() {
+            let options = {
+                filters: [{services: [bleService]}],
+            }
 
-        //     console.log('Requesting BLE device info...')
+            console.log('Requesting BLE device info...')
 
-        //     return navigator.bluetooth.requestDevice(options)
-        //     .then(device => {
-        //         console.log('Device name: ' + device.name)
-        //         bluetoothDeviceDetected = device
-        //         device.addEventListener('advertisementreceived', getRssi)
-        //         debugger
-        //     }).catch(error => {
-        //         console.log('Woops!' + error)
-        //     })
-        // }
+            return navigator.bluetooth.requestDevice(options)
+            .then(device => {
+                console.log('Device name: ' + device.name)
+                bluetoothDeviceDetected = device
+                device.addEventListener('advertisementreceived', getRssi)
+                debugger
+            }).catch(error => {
+                console.log('Woops!' + error)
+            })
+        }
 
         function scanForAdvertisements() {
             let options = {
@@ -84,11 +84,11 @@
 
                 bluetoothDeviceDetected = device
 
-                bluetoothDeviceDetected.addEventListener('advertisementreceived', (event) => {
-                    debugger
-                    console.log('Advertisement recieved')
-                    console.log('RSSI: ' + event.rssi)
-                })
+                // bluetoothDeviceDetected.addEventListener('advertisementreceived', (event) => {
+                //     debugger
+                //     console.log('Advertisement recieved')
+                //     console.log('RSSI: ' + event.rssi)
+                // })
             })
 
             // console.log('Watching advertisements from "' + device.name + '"...');
