@@ -19,7 +19,7 @@
 
         document.querySelector('#connect').addEventListener('click', function () {
             if (isWebBLEAvailable()) {
-                getDeviceInfo()
+                connect()
             }
         })
 
@@ -68,6 +68,7 @@
             }).catch(error => {
                 console.log('Woops!' + error)
             })
+            
         }
 
         function scanForAdvertisements() {
